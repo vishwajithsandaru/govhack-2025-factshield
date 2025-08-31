@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama_models:/root/.ollama  # persist downloaded models
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+  # ollama-pull:
+  #   image: curlimages/curl:latest
+  #   depends_on: [ollama]
+  #   entrypoint: ["/bin/sh","-c"]
+  #   command: >
+  #     'until curl -s http://ollama:11434 >/dev/null; do sleep 1; done;
+  #      curl -s -X POST http://ollama:11434/api/pull -d "{\"model\":\"llama3\"}" || exit 1;
+  #      echo "llama3 pulled";'
+
+volumes:
+  ollama_models:
+  qdrant_storage:
